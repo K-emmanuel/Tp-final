@@ -1,0 +1,57 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Accueil{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <style>
+        .products-container {
+            padding: 3rem 2rem;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1rem;
+            max-width: 100%;
+        }
+        @media (max-width: 1024px) {
+            .products-container {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+        @media (max-width: 768px) {
+            .products-container {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        .product-card {
+            background-color: #000;
+            overflow: hidden;
+            transition: opacity 0.2s;
+            cursor: pointer;
+        }
+        .product-card:hover {
+            opacity: 0.8;
+        }
+        .product-image {
+            width: 100%;
+            aspect-ratio: 1;
+            object-fit: cover;
+            display: block;
+        }
+    </style>
+{% endblock %}
+
+{% block body %}
+<div class="products-container">
+    {% if products is defined and products is not empty %}
+        {% for product in products %}
+            <a class="product-card" href="{{ path('app_product_show', {'id': product.id}) }}">
+                <div class="product-image-wrapper">
+                    <img src="{{ product.image }}" alt="{{ product.name }}" class="product-image">
+                </div>
+            </a>
+        {% endfor %}
+    {% else %}
+        <p style="color: #fff; text-align: center; width: 100%;">Aucun produit disponible pour le moment.</p>
+    {% endif %}
+</div>
+{% endblock %}
