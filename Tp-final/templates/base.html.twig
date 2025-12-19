@@ -59,7 +59,7 @@
             </div>
             <img src="https://s3.amazonaws.com/busites_www/tour-playboycarti-com/media/tour_title.png" alt="Playboi Carti Tour" class="header-logo">
             <div class="header-right">
-                <a href="#">À propos</a>
+                <a href="{{ path('app_about') }}">Qui sommes nous</a>
                 <a href="{{ path('app_contact') }}">Contact</a>
                 {% if app.user %}
                     <a href="{{ path('app_account') }}">Compte</a>
