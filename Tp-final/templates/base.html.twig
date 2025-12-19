@@ -50,6 +50,25 @@
                 .header a:hover {
                     opacity: 0.7;
                 }
+                .footer {
+                    background-color: #000;
+                    border-top: 1px solid #333;
+                    padding: 1.5rem 2rem;
+                    margin-top: 3rem;
+                    display: flex;
+                    justify-content: center;
+                    gap: 3rem;
+                }
+                .footer a {
+                    color: #fff;
+                    text-decoration: none;
+                    font-size: 0.9rem;
+                    font-weight: 500;
+                    transition: opacity 0.2s;
+                }
+                .footer a:hover {
+                    opacity: 0.7;
+                }
             </style>
         {% endblock %}
 
@@ -77,5 +96,9 @@
             </div>
         </header>
         {% block body %}{% endblock %}
+        <footer class="footer">
+            <a href="{{ path('app_cgv') }}">CGV</a>
+            <a href="{{ path('app_cgu') }}">CGU</a>
+        </footer>
     </body>
 </html>
