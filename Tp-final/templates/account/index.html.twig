@@ -1,0 +1,82 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mon Compte{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <style>
+        .account-container {
+            padding: 3rem 2rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .account-header {
+            margin-bottom: 2rem;
+            border-bottom: 1px solid #333;
+            padding-bottom: 1rem;
+        }
+        .account-header h1 {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+        .account-info {
+            background-color: #0a0a0a;
+            border: 1px solid #333;
+            border-radius: 8px;
+            padding: 2rem;
+        }
+        .info-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 1rem 0;
+            border-bottom: 1px solid #222;
+        }
+        .info-row:last-child {
+            border-bottom: none;
+        }
+        .info-label {
+            color: #999;
+            font-weight: 500;
+        }
+        .info-value {
+            color: #fff;
+        }
+        .logout-btn {
+            margin-top: 2rem;
+            padding: 0.75rem 2rem;
+            background-color: #fff;
+            color: #000;
+            border: none;
+            border-radius: 4px;
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            transition: opacity 0.2s;
+        }
+        .logout-btn:hover {
+            opacity: 0.8;
+        }
+    </style>
+{% endblock %}
+
+{% block body %}
+<div class="account-container">
+    <div class="account-header">
+        <h1>Mon Compte</h1>
+    </div>
+
+    <div class="account-info">
+        <div class="info-row">
+            <span class="info-label">Nom d'utilisateur</span>
+            <span class="info-value">{{ user.username }}</span>
+        </div>
+        <div class="info-row">
+            <span class="info-label">ID</span>
+            <span class="info-value">#{{ user.id }}</span>
+        </div>
+    </div>
+
+    <a href="{{ path('app_logout') }}" class="logout-btn">Se déconnecter</a>
+</div>
+{% endblock %}

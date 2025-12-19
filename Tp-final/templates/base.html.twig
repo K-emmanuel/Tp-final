@@ -54,7 +54,11 @@
             </div>
             <img src="https://s3.amazonaws.com/busites_www/tour-playboycarti-com/media/tour_title.png" alt="Playboi Carti Tour" class="header-logo">
             <div class="header-right">
-                <a href="#">Compte</a>
+                {% if app.user %}
+                    <a href="{{ path('app_account') }}">Compte</a>
+                {% else %}
+                    <a href="{{ path('app_login') }}">Compte</a>
+                {% endif %}
             </div>
         </header>
         {% block body %}{% endblock %}

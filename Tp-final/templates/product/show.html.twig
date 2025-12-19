@@ -1,34 +1,117 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Product{% endblock %}
+{% block title %}{{ product.name }}{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <style>
+        .product-detail-container {
+            padding: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            height: calc(100vh - 60px);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            overflow: hidden;
+        }
+        .product-detail {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            max-height: 80vh;
+        }
+        @media (max-width: 768px) {
+            .product-detail {
+                grid-template-columns: 1fr;
+            }
+        }
+        .product-image-container {
+            background-color: #000;
+            border-radius: 8px;
+            overflow: hidden;
+            max-height: 70vh;
+            display: flex;
+            align-items: center;
+        }
+        .product-main-image {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            display: block;
+        }
+        .product-info {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+            justify-content: center;
+        }
+        .product-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin: 0;
+        }
+        .product-price {
+            font-size: 2rem;
+            font-weight: 600;
+            color: #fff;
+        }
+        .product-description {
+            color: #999;
+            line-height: 1.6;
+            font-size: 1.1rem;
+        }
+        .btn-add-cart {
+            padding: 1rem 2rem;
+            background-color: #fff;
+            color: #000;
+            border: none;
+            border-radius: 4px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: opacity 0.2s;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            width: fit-content;
+        }
+        .btn-add-cart:hover {
+            opacity: 0.8;
+        }
+        .btn-back {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: #999;
+            text-decoration: none;
+            margin-bottom: 2rem;
+            transition: color 0.2s;
+        }
+        .btn-back:hover {
+            color: #fff;
+        }
+    </style>
+{% endblock %}
 
 {% block body %}
-    <h1>Product</h1>
+<div class="product-detail-container">
+    <a href="{{ path('app_home') }}" class="btn-back">
+        ← Retour aux produits
+    </a>
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ product.id }}</td>
-            </tr>
-            <tr>
-                <th>Name</th>
-                <td>{{ product.name }}</td>
-            </tr>
-            <tr>
-                <th>Image</th>
-                <td>{{ product.image }}</td>
-            </tr>
-            <tr>
-                <th>Price</th>
-                <td>{{ product.price }}</td>
-            </tr>
-        </tbody>
-    </table>
+    <div class="product-detail">
+        <div class="product-image-container">
+            <img src="{{ product.image }}" alt="{{ product.name }}" class="product-main-image">
+        </div>
 
-    <a href="{{ path('app_product_index') }}">back to list</a>
+        <div class="product-info">
+            <h1 class="product-title">{{ product.name }}</h1>
 
-    <a href="{{ path('app_product_edit', {'id': product.id}) }}">edit</a>
+            <div class="product-price">{{ product.price }}€</div>
 
-    {{ include('product/_delete_form.html.twig') }}
+            <button class="btn-add-cart">Ajouter au panier</button>
+        </div>
+    </div>
+</div>
 {% endblock %}
