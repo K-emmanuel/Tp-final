@@ -24,6 +24,7 @@
             border: 1px solid #333;
             border-radius: 8px;
             padding: 2rem;
+            margin-bottom: 2rem;
         }
         .info-row {
             display: flex;
@@ -41,11 +42,36 @@
         .info-value {
             color: #fff;
         }
-        .logout-btn {
-            margin-top: 2rem;
+        .edit-form {
+            background-color: #0a0a0a;
+            border: 1px solid #333;
+            border-radius: 8px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+        .edit-form h2 {
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #999;
+        }
+        .form-group input {
+            width: 100%;
+            padding: 0.75rem;
+            background-color: #1a1a1a;
+            border: 1px solid #333;
+            border-radius: 4px;
+            color: #fff;
+            font-size: 1rem;
+        }
+        .btn {
             padding: 0.75rem 2rem;
-            background-color: #fff;
-            color: #000;
             border: none;
             border-radius: 4px;
             font-weight: 600;
@@ -53,9 +79,47 @@
             text-decoration: none;
             display: inline-block;
             transition: opacity 0.2s;
+            font-size: 1rem;
         }
-        .logout-btn:hover {
+        .btn-primary {
+            background-color: #fff;
+            color: #000;
+        }
+        .btn-danger {
+            background-color: #dc3545;
+            color: #fff;
+        }
+        .btn:hover {
             opacity: 0.8;
+        }
+        .btn-group {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+        .alert {
+            padding: 1rem;
+            border-radius: 4px;
+            margin-bottom: 1.5rem;
+        }
+        .alert-success {
+            background-color: #2d2d2d;
+            border: 1px solid #4caf50;
+        }
+        .edit-section {
+            display: none;
+            background-color: #0a0a0a;
+            border: 1px solid #333;
+            border-radius: 8px;
+            padding: 2rem;
+            margin-top: 1.5rem;
+        }
+        .edit-section.active {
+            display: block;
+        }
+        .edit-section h3 {
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
         }
     </style>
 {% endblock %}
@@ -65,6 +129,12 @@
     <div class="account-header">
         <h1>Mon Compte</h1>
     </div>
+
+    {% for message in app.flashes('success') %}
+        <div class="alert alert-success">
+            {{ message }}
+        </div>
+    {% endfor %}
 
     <div class="account-info">
         <div class="info-row">
@@ -77,6 +147,30 @@
         </div>
     </div>
 
-    <a href="{{ path('app_logout') }}" class="logout-btn">Se déconnecter</a>
+    <div class="btn-group">
+        <button onclick="toggleEdit()" class="btn btn-primary">Modifier</button>
+        <form method="POST" action="{{ path('app_account_delete') }}" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer votre compte ? Cette action est irréversible.');" style="display: inline;">
+            <button type="submit" class="btn btn-danger">Supprimer</button>
+        </form>
+        <a href="{{ path('app_logout') }}" class="btn btn-primary">Se déconnecter</a>
+    </div>
+
+    <div id="editSection" class="edit-section">
+        <h3>Modifier mon nom</h3>
+        <form method="POST" action="{{ path('app_account_edit') }}">
+            <div class="form-group">
+                <label for="username">Nouveau nom d'utilisateur</label>
+                <input type="text" id="username" name="username" value="{{ user.username }}" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Enregistrer</button>
+        </form>
+    </div>
 </div>
+
+<script>
+    function toggleEdit() {
+        const section = document.getElementById('editSection');
+        section.classList.toggle('active');
+    }
+</script>
 {% endblock %}
